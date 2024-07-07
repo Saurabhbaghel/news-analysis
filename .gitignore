@@ -1,0 +1,16 @@
+# python notebook
+*.ipynb
+
+# docs
+*.docx
+*.txt
+
+# pycache
+__pycache__
+
+# saved data
+*.csv
+
+# database
+*.db
+*.db-journal
