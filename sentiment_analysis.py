@@ -51,7 +51,7 @@ def get_sentiment_wrt_org(org: str, text: str) -> Emotion:
     parser = JsonOutputParser(pydantic_object=Emotion)
 
     prompt = PromptTemplate.from_template(
-        'Answer the user query.\n{format_instructions}\nFind the sentiment of the {text} from the perspective of {org}.\nRemove text outside JSON.',
+        'Answer the user query.\n{format_instructions}\nFind the sentiment of the {text} from the perspective of {org}.\nDo not give text outside JSON.',
         partial_variables={"format_instructions": parser.get_format_instructions()}
         )
     
@@ -65,7 +65,12 @@ def get_sentiment_wrt_org(org: str, text: str) -> Emotion:
         try:
             _emotion = chain.invoke({"text": text, "org": org})
             success = True
+        
         except OutputParserException:
+            _emotion = chain.invoke({"text": text, "org": org})
+            attempt += 1
+        
+        except JSONDecodeError:
             _emotion = chain.invoke({"text": text, "org": org})
             attempt += 1
     
