@@ -1,16 +1,21 @@
+
 from typing import Optional
 
+import torch.nn as nn
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
 from langchain_core.prompts import PromptTemplate
 from langchain_text_splitters import TokenTextSplitter
+from langchain_core.language_models.llms import LLM
 
 from configs import Summarization
 
 
  
     
-def model(repo: str, tokenizer: str | AutoTokenizer, task: str="summarization"):
+def model(repo: str=Summarization.MODEL_REPO.value, 
+          tokenizer: str | AutoTokenizer=Summarization.TOKENIZER_REPO.value, 
+          task: str="summarization"):
     
     """Builds the model and returns the HF pipeline
 
@@ -112,7 +117,7 @@ def summarize_news_article(news_article: str) -> str:
     # defining an inline function to get the number of tokens of the text
     # num_tokens = lambda text: get_num_tokens(tokenizer, text)
     num_tokens = get_num_tokens(tokenizer, news_article)
-    print(f"Number of tokens: {num_tokens}")
+    print(f"Number of tokens: {num_tokens}", end="\t")
     
     if num_tokens > chunk_size:
         # re-initializing the summary of chunks

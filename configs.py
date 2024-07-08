@@ -20,6 +20,7 @@ class Sentiment(Enum):
     """Sentiment Analysis Configuration"""
     
     MODEL_REPO = "avichr/heBERT_sentiment_analysis"
+    MODEL = "llama3"
     
 class Ner(Enum):
     MODEL_REPO = "dslim/bert-base-NER"
