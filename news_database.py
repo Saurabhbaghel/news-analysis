@@ -46,15 +46,15 @@ def store_data_in_db(db_name: str="News.db", table_name: str="Articles", data: t
     
     # table_name = "Articles"
     # Check if the table exists
-    cursor.execute('SELECT name FROM sqlite_master WHERE type="table" AND name="{}"', table_name)
-    table_exists = cursor.fetchone()
+    cur.execute('SELECT name FROM sqlite_master WHERE type="table" AND name="{}"', table_name)
+    table_exists = cur.fetchone()
     
     if table_exists:
         decision = input(f"Table {table_name} already exists. Do you want to overwrite it? y/n: ")
 
     if decision.lower().strip() == "y":
         # drop the table
-        cursor.execute('DROP TABLE "{}"', table_name)
+        cur.execute('DROP TABLE "{}"', table_name)
             
         # create table
         create_table(cur, table_name)     
