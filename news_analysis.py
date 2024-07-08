@@ -25,7 +25,7 @@ def main(args):
     table_name = args.table_name
         
     # get the news articles
-    news_website = "https://indianexpress.com/section/cities/delhi/"
+    news_website = args.news_webpage
 
     # get the news webpage
     webpage = parsing.get_the_webpage(url=news_website)    
@@ -92,6 +92,7 @@ def main(args):
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script to do sentiment analysis of News articles from a website.")
+    parser.add_argument("--news-webpage", default="https://indianexpress.com/section/cities/delhi/", help="News webpage to parse for articles. Default=https://indianexpress.com/section/cities/delhi/")
     parser.add_argument("--create-database", default=False, help="Whether to create a DB or not. If not given then a csv would be created. Default: False")
     parser.add_argument("--db-name", default="News.db", help="Name of the database if it is to be created. Default=News.db")
     parser.add_argument("--table-name", default="Articles", help="Name of the table. If DB is not to be created this will the name of the csv. Default=Article")
